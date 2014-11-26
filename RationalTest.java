@@ -26,8 +26,8 @@ public class RationalTest extends TestCase {
     }
 
     public void testAccessors() {
-    	assertEquals(new Rational(2,3).numerator(), 2);
-    	assertEquals(new Rational(2,3).denominator(), 3);
+        assertEquals(new Rational(2,3).numerator(), 2);
+        assertEquals(new Rational(2,3).denominator(), 3);
     }
 
     public void testRoot() {
@@ -43,13 +43,44 @@ public class RationalTest extends TestCase {
     }
 
     //New Tests
-    //tests if divide works
+    //tests creation of Rational numbers
+    public void testCreation(){
+        try{
+            Rational a = new Rational(1,0);
+            fail("Can not have a rational number divide by 0, need a custom exception");
+        } catch (ArithmeticException e){
+            assertTrue(true);
+        }
+        try{
+            Rational b = new Rational(0,0);
+            fail("Can not have a rational number divide by 0, need a custom exception");
+        } catch (ArithmeticException e){
+            assertTrue(true);
+        }
+        try{
+            Rational c = new Rational(0,1);
+            fail("Can not have a rational number divide by 0, need a custom exception");
+        } catch (ArithmeticException e){
+            assertTrue(true);
+        }
+    }
+    
+    //tests if divide works(this uses multiplication too)
     public void testDivides() {
         Rational a = new Rational(1,3);
         Rational b = new Rational(5,3);
-        //a.divides(b);
         assertEquals(a.divides(b),new Rational(1,5));
-
+        
+        //Testing divides knowing that this is improper creation
+        Rational c = new Rational(1,0);
+        try{
+            b.divides(c);
+            fail("Can not divide a number by an undefined number");
+        } catch (ArithmeticException e){
+            assertTrue(true);
+        }
+        
+        
     }
 
     public void testDividesExceptions(){
@@ -102,7 +133,15 @@ public class RationalTest extends TestCase {
     public void testAdd(){
         Rational a = new Rational (1,-4);
         Rational b = new Rational (1,-2);
+        Rational c = new Rational (1,0);
+        Rational d = new Rational (1,0);
         assertEquals(a.plus(b), new Rational (-3,4));
+        try{
+            c.plus(d);
+            fail("You are not allowed to add two undefined numbers. Must have a custom exception");
+        } catch(Exception e){
+            assertTrue(true);
+        }
     }
 
     public void testMain(){
